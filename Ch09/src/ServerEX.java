@@ -11,18 +11,17 @@ try {
 	// readLine() 함수 이용을 위해, BufferedReader 클래스 이용
 	BufferedReader in = new BufferedReader(new
 	InputStreamReader(sock.getInputStream()));
-	PrintWriter out = new
-	PrintWriter(sock.getOutputStream());
+	PrintWriter out = new PrintWriter(sock.getOutputStream());
 	
-	while(true) {
-	String msg = in.readLine();
-	System.out.println(msg);
-	out.println("ok");
-	out.flush();
+	while(true) {//오는 메세지한테 ok만 던진다
+		String msg = in.readLine();
+		System.out.println(msg);
+		out.println("ok");
+		out.flush();
 	
-	if (msg.equals("bye")) break;//서버가 여러 메세지 받을 수 있음
+	if (msg.equals("bye")) break;//서버가 여러 메세지 받을 수 있음, String은 ==사용 불가, equals 함수를 사용해야 한다
 	}
-	sock.close();
+	sock.close();//if문으로 while문 빠져나올 수 있게 만들어야 close 가능
 	srvsock.close();
 	System.out.println("Server stopped c... \n");
 	

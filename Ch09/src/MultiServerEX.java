@@ -11,21 +11,25 @@ try {
 	
 	// readLine() 함수 이용을 위해, BufferedReader 클래스 이용
 	for (int i=0; i<5; i++) { 
+		/* 웹 서버는 다중 사용자를 처리해야 한다. 1대 다수로 통신하기 위해서 for문으로 감싸준다
+		 만들어준 멀티서버는 동시에 5명이 접속은 가능하지만 1명만 대화에 참여 가능
+		 동시서비스가 가능하게 하기 위해서는 쓰레드 개념 사용
+		 */
 		Socket sock = srvsock.accept();
-	BufferedReader in = new BufferedReader(new
-	InputStreamReader(sock.getInputStream()));
-	PrintWriter out = new
-	PrintWriter(sock.getOutputStream());
-	
-	while(true) {
-	String msg = in.readLine();
-	System.out.println(msg);
-	out.println("ok");
-	out.flush();
-	
-	if (msg.equals("bye")) break;//서버가 여러 메세지 받을 수 있음
-	}
-	sock.close();
+		BufferedReader in = new BufferedReader(new
+		InputStreamReader(sock.getInputStream()));
+		PrintWriter out = new
+		PrintWriter(sock.getOutputStream());
+		
+		while(true) {
+		String msg = in.readLine();
+		System.out.println(msg);
+		out.println("ok");
+		out.flush();
+		
+		if (msg.equals("bye")) break;//서버가 여러 메세지 받을 수 있음
+		}
+		sock.close();
 }
 	srvsock.close();
 	System.out.println("Server stopped ... \n");
